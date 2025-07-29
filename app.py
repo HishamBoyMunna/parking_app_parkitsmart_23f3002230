@@ -142,7 +142,7 @@ def admin_dashboard():
     parking_lots = conn.execute('SELECT * FROM parking_lots ORDER BY prime_location_name').fetchall()
     
     users = conn.execute('SELECT id, username, email, role, created_at FROM users ORDER BY username').fetchall()
-
+    #summary chart attributes
     total_lots = len(parking_lots)
     total_max_spots = sum(lot['maximum_number_of_spots'] for lot in parking_lots)
     total_occupied_spots = sum(lot['current_occupied_spots'] for lot in parking_lots)
@@ -509,7 +509,7 @@ def user_dashboard():
             'leaving_timestamp': leaving_ist_dt_str,
             'total_cost': hist['total_cost']
         })
-
+    #summary attributes for user
     total_reservations = conn.execute('SELECT COUNT(*) FROM parking_reservations WHERE user_id = ?', (user_id,)).fetchone()[0]
     completed_parks = conn.execute('SELECT COUNT(*) FROM parking_reservations WHERE user_id = ? AND is_active = 0', (user_id,)).fetchone()[0]
     total_amount_spent = conn.execute('SELECT SUM(total_cost) FROM parking_reservations WHERE user_id = ? AND is_active = 0', (user_id,)).fetchone()[0] or 0.0
