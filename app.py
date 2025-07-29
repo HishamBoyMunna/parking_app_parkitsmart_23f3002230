@@ -134,7 +134,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
-
+#admin dashboard
 @app.route('/admin_dashboard')
 @admin_required
 def admin_dashboard():
