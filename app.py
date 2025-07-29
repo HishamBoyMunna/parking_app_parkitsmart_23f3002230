@@ -600,6 +600,7 @@ def release_parking_spot(reservation_id):
         utc_timezone = pytz.utc
         ist_timezone = pytz.timezone('Asia/Kolkata') 
 
+        # Cost Calculation based on time spend in parking
         parking_timestamp_str = reservation['parking_timestamp']
         try:
             parking_timestamp_utc = datetime.strptime(parking_timestamp_str, '%Y-%m-%d %H:%M:%S.%f')
