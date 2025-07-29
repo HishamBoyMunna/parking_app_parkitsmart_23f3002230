@@ -1,0 +1,26 @@
+# Operating System Files
+.DS_Store             
+.Trashes              
+
+# Build/Compilation Artifacts
+*.pyc                
+__pycache__/          
+.venv/                
+venv/                 
+
+# Logs and Databases
+*.log                 
+*.sqlite3             
+*.db                  
+
+# Editor/IDE Specific Files
+.vscode/              
+.DS_Store?            
+
+# Miscellaneous
+.env                  
+.flaskenv             
+.Python               
+*.bin                 
+*.bak                 
+*.tmp                 
