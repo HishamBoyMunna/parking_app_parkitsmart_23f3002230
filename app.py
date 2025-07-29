@@ -424,7 +424,7 @@ def delete_spot(spot_id):
     
     return redirect(url_for('manage_spots', lot_id=lot_id))
 
-
+#user dashboard
 @app.route('/user_dashboard')
 @login_required 
 def user_dashboard():
