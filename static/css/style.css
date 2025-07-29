@@ -1,0 +1,65 @@
+.navbar-custom {
+    background-color: #3B5998;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.navbar-brand-custom {
+    color: #FFFFFF !important; 
+    font-size: 1.8rem; 
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-right: 20px; 
+}
+
+.custom-link {
+    color: #E0E0E0 !important; 
+    font-size: 1.1rem;
+    margin-left: 15px;
+    transition: color 0.3s ease; 
+}
+
+.custom-link:hover {
+    color: #FFFFFF !important; 
+    text-decoration: underline;
+}
+
+.flash-messages .alert {
+    margin-top: 15px;
+    border-radius: 0.5rem;
+}
+
+.jumbotron {
+    background-color: #f8f9fa; 
+    padding: 3rem 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,.05);
+}
+
+.jumbotron h1 {
+    color: #2c3e50; 
+}
+
+.jumbotron .lead {
+    color: #7f8c8d; 
+}
+
+.btn-primary {
+    background-color: #28a745; 
+    border-color: #28a745;
+}
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
