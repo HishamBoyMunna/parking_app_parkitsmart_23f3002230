@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, g
 import sqlite3
 import click
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash #for authentication
 from models.database import init_db, get_db_connection, DATABASE
 import os
 import functools
