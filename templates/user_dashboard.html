@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">User Dashboard</h1>
+        <p class="lead">Book and manage your parking spots.</p>
+        <hr class="my-4">
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2>Available Parking Lots</h2>
+            {% if available_parking_lots %}
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Location Name</th>
+                            <th>Address</th>
+                            <th>Pincode</th>
+                            <th>Price/Hour</th>
+                            <th>Available Spots</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lot in available_parking_lots %}
+                            <tr>
+                                <td>{{ lot.prime_location_name }}</td>
+                                <td>{{ lot.address }}</td>
+                                <td>{{ lot.pin_code }}</td>
+                                <td>₹{{ '{:.2f}'.format(lot.price_per_hour) }}</td>
+                                <td>{{ lot.maximum_number_of_spots - lot.current_occupied_spots }}</td>
+                                <td>
+                                    {% if (lot.maximum_number_of_spots - lot.current_occupied_spots) > 0 %}
+                                        <form action="{{ url_for('book_parking_spot', lot_id=lot.id) }}" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-sm btn-success">Book Spot</button>
+                                        </form>
+                                    {% else %}
+                                        <button class="btn btn-sm btn-warning" disabled>Full</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No parking lots currently available for booking.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2>Your Active Parking Reservations</h2>
+            {% if active_reservations %}
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Parking Lot</th>
+                            <th>Spot Number</th>
+                            <th>Parking Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reservation in active_reservations %}
+                            <tr>
+                                <td>{{ reservation.prime_location_name }}</td>
+                                <td>{{ reservation.spot_number }}</td>
+                                <td>{{ reservation.parking_timestamp }}</td>
+                                <td>
+                                    <form action="{{ url_for('release_parking_spot', reservation_id=reservation.id) }}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to release this parking spot?');">
+                                        <button type="submit" class="btn btn-sm btn-danger">Release Spot</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>You currently have no active parking reservations.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>Your Parking History</h3>
+            {% if parking_history %}
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Lot</th>
+                            <th>Spot</th>
+                            <th>Parked In</th>
+                            <th>Parked Out</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for history in parking_history %}
+                            <tr>
+                                <td>{{ history.prime_location_name }}</td>
+                                <td>{{ history.spot_number }}</td>
+                                <td>{{ history.parking_timestamp }}</td>
+                                <td>{{ history.leaving_timestamp if history.leaving_timestamp else 'N/A' }}</td>
+                                <td>₹{{ '{:.2f}'.format(history.total_cost) if history.total_cost else 'N/A' }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>You have no past parking history.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h3>Your Parking Summary</h3>
+            <div class="card p-3">
+                <h5>Summary</h5>
+                <p>Total Reservations: {{ total_reservations }}</p>
+                <p>Total Completed Parks: {{ completed_parks }}</p>
+                <p>Total Amount Spent: ₹{{ '{:.2f}'.format(total_amount_spent) }}</p>
+                <p class="text-muted">Visualizations of your parking habits and costs would appear here.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

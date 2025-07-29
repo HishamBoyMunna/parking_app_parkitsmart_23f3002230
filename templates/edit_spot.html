@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Parking Spot{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Edit Spot: {{ spot.spot_number }} (Lot: {{ parking_lot.prime_location_name }})</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="spot_number" class="form-label">New Spot Name/Number</label>
+                            <input type="text" class="form-control" id="spot_number" name="spot_number" required value="{{ request.form['spot_number'] or spot.spot_number }}">
+                            <div class="form-text">e.g., A1, B-2. Must be unique within this lot.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Spot Status</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="Available" {% if (request.form['status'] or spot.status) == 'Available' %}selected{% endif %}>Available</option>
+                                <option value="Occupied" {% if (request.form['status'] or spot.status) == 'Occupied' %}selected{% endif %}>Occupied</option>
+                            </select>
+                            <div class="form-text text-danger">Changing status here will affect availability but might not reflect active user reservations.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Update Spot</button>
+                        <a href="{{ url_for('manage_spots', lot_id=spot.lot_id) }}" class="btn btn-secondary w-100 mt-2">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

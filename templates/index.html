@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to the Vehicle Parking App!</h1>
+        <p class="lead">Your go-to solution for managing parking lots and finding spots.</p>
+        <hr class="my-4">
+        {% if not g.user %}
+            <p>Please register or log in to get started.</p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}" role="button">Register</a>
+                <a class="btn btn-secondary btn-lg" href="{{ url_for('login') }}" role="button">Login</a>
+            </p>
+        {% else %}
+            {% if g.user['role'] == 'admin' %}
+                <p>Welcome, Administrator! Head to your dashboard:</p>
+                <p><a class="btn btn-info btn-lg" href="{{ url_for('admin_dashboard') }}" role="button">Admin Dashboard</a></p>
+            {% else %}
+                <p>Welcome, {{ g.user['username'] }}! Explore available parking:</p>
+                <p><a class="btn btn-success btn-lg" href="{{ url_for('user_dashboard') }}" role="button">User Dashboard</a></p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
