@@ -676,3 +676,5 @@ if __name__ == '__main__':
             print(f"[{current_time_ist}] Database already exists at {DATABASE}. Skipping initialization. To force re-initialization, set FLASK_REINIT_DB=1 environment variable.")
     
     app.run(debug=True)
+
+#END
