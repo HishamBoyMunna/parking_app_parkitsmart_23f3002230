@@ -23,4 +23,5 @@ venv/
 .Python               
 *.bin                 
 *.bak                 
-*.tmp                 
+*.tmp
+*.tmp2 #custom
